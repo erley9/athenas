@@ -70,7 +70,7 @@ php artisan jwt:secret --env=testing
 '''
 
 utilize esse comando para acessar o container do front docker exec -it my_frontend /bin/bash
-e rode o npm run dev
+e rode o npm install e npm run dev
 a aplicação vue estará disponível no link http://localhost:9200/
 
 
