@@ -18,7 +18,7 @@ class ClientController extends Controller
     public function index()
     {
         $results = Client::paginate(5);
-        $results->setPath('http://localhost:9200/clientes');
+        $results->setPath('');
         return new ClientCollection($results);
     }
 

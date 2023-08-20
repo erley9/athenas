@@ -5,8 +5,6 @@ class ClientDataService {
 
     let url = "/client";
 
-    console.log(page);
-
     if (page) {
       url = "/client?page="+page;
     }

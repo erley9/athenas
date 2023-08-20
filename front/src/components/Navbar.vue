@@ -20,13 +20,15 @@
 
 <script>
   import {RouterLink} from 'vue-router';
-  export default {
-  'name': 'Navbar',
-  }
+  import { defineComponent } from "vue";
+
+  export default defineComponent({
+    "name": "Nabvbar"
+  })
+
 </script>
 
 <script setup>
-  import {ref, onMounted, computed} from 'vue';
   import {useRouter} from 'vue-router';
   import AuthDataService from '../services/AuthDataService';
   const router = useRouter();

@@ -2,8 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import RegistroView from '../views/RegistroView.vue'
 import ClientListView from '../views/ClientListView.vue'
-import ClientCadatroView from '../views/ClientCadatroView.vue'
-import ClientEditarView from '../views/ClientEditarView.vue'
+import ClientForm from '../views/Formulario.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,7 +34,7 @@ const router = createRouter({
     {
       path: '/clientes/cadastro',
       name: 'clienteCadastro',
-      component: ClientCadatroView,
+      component: ClientForm,
       meta: {
         "requiresAuth":true
       }
@@ -43,7 +42,8 @@ const router = createRouter({
     {
       path: '/clientes/editar/:id',
       name: 'clienteEditar',
-      component: ClientEditarView,
+      component: ClientForm,
+      props: true,
       meta: {
         "requiresAuth":true
       }

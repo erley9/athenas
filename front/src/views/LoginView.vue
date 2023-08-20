@@ -23,34 +23,53 @@
   </main>
 </template>
 
-<script setup>
-import {ref} from 'vue';
-import AuthDataService from '../services/AuthDataService';
-import { useRouter } from 'vue-router';
-const email = ref("");
-const password = ref("");
-const loading = ref(false);
-const error = ref(false);
-const router = useRouter();
+<script>
+import {ref, defineComponent} from 'vue'
+import AuthDataService from '../services/AuthDataService'
+import { useRouter } from 'vue-router'
+import { useStore } from "@/store"
+import { 
+    LIST_CATEGORIES_ACTION,
+    LIST_CLIENTS_ACTION
+} from '@/store/mutation-types'
 
-async function login(){
-  try{
-    const {data} = await AuthDataService.login({
-      "email":email.value,
-      "password":password.value
-    });
+export default defineComponent({
+  name:"login",
+  setup (){
+    const email = ref("")
+    const password = ref("")
+    const error = ref(false)
+    const router = useRouter()
+    const store = useStore()
 
-    console.log(data);
+    const login  = async function (){
+      try{
+        const {data} = await AuthDataService.login({
+          "email":email.value,
+          "password":password.value
+        });
 
-    if (data.status) {
-      localStorage.setItem('accesstoken', data.token);
-      router.push("/clientes");
+        if (data.status) {
+          localStorage.setItem('accesstoken', data.token);
+          store.dispatch(LIST_CATEGORIES_ACTION);
+          store.dispatch(LIST_CLIENTS_ACTION, 1);
+          router.push("/clientes");
+        }
+        
+      }catch(responseError) {
+        error.value = true;
+        setInterval(function(){
+          error.value = false;
+        }, 4000);
+      }
     }
-  }catch(responseError) {
-    error.value = true;
-    setInterval(function(){
-      error.value = false;
-    }, 4000);
+
+    return {
+      email,
+      password,
+      login,
+      error
+    }
   }
-}
+})
 </script>
