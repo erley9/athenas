@@ -45,6 +45,9 @@ jobs:
 
       - name: Execute docker
         run: docker compose up -d
-      
+        
+      - name: Execute tests
+        run: make initbanco
+        
       - name: Execute tests
         run: docker compose exec app php artisan test
