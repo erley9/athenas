@@ -36,6 +36,7 @@ services:
             MYSQL_USER: ${DB_USERNAME:-username}
         volumes:
             - ./.docker/mysql/dbdata:/var/lib/mysql
+            - ./.shared:/home/data/db/dumps
         ports:
             - "3388:3306"
         networks:
@@ -53,7 +54,6 @@ services:
         tty: true
         networks:
             - laravel
-
 networks:
     laravel:
         driver: bridge
