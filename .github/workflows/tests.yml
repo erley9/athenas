@@ -47,7 +47,7 @@ jobs:
         run: docker compose up -d
         
       - name: Execute tests
-        run: docker exec -i $(shell docker-compose ps -q db) mysql -u"root" -p"root" < ./.shared/dbtest.sql 2>/dev/null
+        run: docker exec -i $(shell docker-compose ps -q db) mysql -h 127.0.0.1 -u"root" -p"root" < ./.shared/dbtest.sql 2>/dev/null
         
       - name: Execute tests
         run: docker compose exec app php artisan test
