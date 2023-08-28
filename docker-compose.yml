@@ -28,15 +28,18 @@ services:
     db:
         image: mysql:5.7.22
         platform: linux/x86_64
-        restart: unless-stopped
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
         environment:
-            MYSQL_DATABASE: ${DB_DATABASE:-laravel}
-            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
-            MYSQL_PASSWORD: ${DB_PASSWORD:-userpass}
-            MYSQL_USER: ${DB_USERNAME:-username}
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: laravel
+            MYSQL_USER: dvuser
+            MYSQL_PASSWORD: root
         volumes:
             - ./.docker/mysql/dbdata:/var/lib/mysql
-            - ./.shared:/home/data/db/dumps
+            # - ./.shared:/home/data/db/dumps
+            - ./.shared/init.sql:/docker-entrypoint-initdb.d/init.sql
+            - ./.shared/initTest.sql:/docker-entrypoint-initdb.d/initTest.sql
         ports:
             - "3388:3306"
         networks:
