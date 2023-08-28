@@ -1,18 +1,58 @@
-name: ci
+name: Tests
 
 on:
   push:
     branches:
-      - "main"
+      - master
+      - '*.x'
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
+
+permissions:
+  contents: read
 
 jobs:
-  docker:
-    timeout-minutes: 10
+  tests:
     runs-on: ubuntu-latest
+    container:
+      image: docker://erley29/atenas:1.0.0
+      options: --user root
+
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [8.1]
+
+    name: PHP ${{ matrix.php }}
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: install docker
+        uses: isbang/compose-action@v1.5.1
+        with:
+          compose-file: "docker-compose.yml"
+          down-flags: "--volumes"
+        
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
 
-    - name: Start containers
-      run: docker-compose -f "docker-compose.yml" up -d --build
+      - name: Copy environment file
+        run: cp .env.example .env
+
+      - name: Generate app key
+        run: php artisan key:generate
+
+      - name: docker compose up
+        run: docker compose up
+          
+      - name: migrate
+        run: php artisan migrate --env=testing
+
+      - name: seed
+        run: php artisan db:seed --env=testing
+
+      - name: Execute tests
+        run: docker compose exec app php artisan test
