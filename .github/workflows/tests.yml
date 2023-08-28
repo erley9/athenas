@@ -38,6 +38,9 @@ jobs:
 
       - name: Generate app key
         run: php artisan key:generate
+
+      - name: docker compose up
+        run: docker compose up
           
       - name: migrate
         run: php artisan migrate --env=testing
