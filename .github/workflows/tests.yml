@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: docker://erley29/atenas:1.0.0
+      options: --user root
 
     strategy:
       fail-fast: true
