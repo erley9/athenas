@@ -48,9 +48,6 @@ jobs:
           echo ---Building and starting up docker---
           docker-compose -f ./docker-compose.yml up -d
           echo ---Containers u
-        
-      - name: Execute tests
-        run: docker exec -i mysql -h 127.0.0.1 -u"root" -p"root" < ./.shared/dbtest.sql 2>/dev/null
-        
+          
       - name: Execute tests
         run: docker compose exec app php artisan test
