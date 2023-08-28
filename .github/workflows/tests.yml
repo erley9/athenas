@@ -29,7 +29,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+        
+      - name: install docker
+        uses: docker://continuumio/anaconda3:2019.07
+        
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
 
