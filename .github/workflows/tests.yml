@@ -48,6 +48,12 @@ jobs:
           echo ---Building and starting up docker---
           docker-compose -f ./docker-compose.yml up -d
           echo ---Containers u
-          
+        
+      - name: migrate
+          run :php artisan migrate --env=testing
+
+      - name: seed
+          run :php artisan db:seed --env=testing
+
       - name: Execute tests
         run: docker compose exec app php artisan test
