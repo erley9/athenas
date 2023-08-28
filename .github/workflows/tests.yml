@@ -2,12 +2,10 @@ name: Tests
 
 on:
   push:
-    branches:
-      - master
-      - '*.x'
-  pull_request:
-  schedule:
-    - cron: '0 0 * * *'
+    branches: [main]
+    paths:
+      - docker-compose.yml
+      - Dockerfile
 
 permissions:
   contents: read
@@ -30,15 +28,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         
-      - name: install docker
-        uses: isbang/compose-action@v1.5.1
-        with:
-          compose-file: "docker-compose.yml"
-          down-flags: "--volumes"
-        
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
 
+      - name: Build image
+        run: docker compose -f docker-compose.yml build
+        
       - name: Copy environment file
         run: cp .env.example .env
 
