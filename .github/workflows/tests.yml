@@ -48,7 +48,7 @@ jobs:
           echo ---Building and starting up docker---
           docker-compose -f ./docker-compose.yml up -d
           echo ---Containers u
-        
+          
       - name: migrate
           run :php artisan migrate --env=testing
 
