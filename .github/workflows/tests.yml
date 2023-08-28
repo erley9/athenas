@@ -38,12 +38,6 @@ jobs:
 
       - name: Generate app key
         run: php artisan key:generate
-
-      - name: Build docker
-        run: | 
-          echo ---Building and starting up docker---
-          docker-compose -f ./docker-compose.yml up -d
-          echo ---Containers u
           
       - name: migrate
         run: php artisan migrate --env=testing
