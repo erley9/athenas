@@ -34,13 +34,13 @@ jobs:
           down-flags: "--volumes"
         
       - name: Install Composer dependencies
-        run: composer install --prefer-dist --no-interaction --no-progress
+        run: docker compose exec app composer install
 
       - name: Copy environment file
-        run: cp .env.example .env
+        run: docker compose exec app cp .env.example .env
 
       - name: Generate app key
-        run: php artisan key:generate
+        run: docker compose exec app php artisan key:generate
           
       - name: migrate
         run: docker compose exec app php artisan migrate --env=testing
