@@ -34,10 +34,10 @@ jobs:
           down-flags: "--volumes"
         
       - name: Install Composer dependencies
-        run: docker compose exec app bash composer install
+        run: docker compose exec app composer install
 
       - name: Copy environment file
-        run: docker compose exec app bash cp .env.example .env
+        run: docker compose exec app cp .env.example .env
 
       - name: Generate app key
         run: docker compose exec app php artisan key:generate
