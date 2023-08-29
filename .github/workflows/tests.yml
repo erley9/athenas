@@ -31,7 +31,8 @@ jobs:
         uses: isbang/compose-action@v1.5.1
         with:
           compose-file: "./docker-compose.yml"
-          down-flags: "--volumes"
+          up-flags: "--exit-code-from"
+          down-flags: "--volumes --exit-code-from"
         
       - name: Install Composer dependencies
         run: docker compose exec --user=root app composer install
