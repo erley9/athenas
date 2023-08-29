@@ -47,7 +47,7 @@ RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
     &&  docker-php-ext-enable redis
 
-RUN chown -R www-data:www-data /var/www
+RUN chown -R 755 /var/www
 
 # Set working directory
 WORKDIR /var/www
