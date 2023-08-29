@@ -33,7 +33,7 @@ jobs:
       - name: install docker
         uses: isbang/compose-action@v1.5.1
         with:
-          compose-file: "docker-compose.yml"
+          compose-file: "./docker-compose.yml"
           down-flags: "--volumes"
         
       - name: Install Composer dependencies
