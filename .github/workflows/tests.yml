@@ -34,8 +34,8 @@ jobs:
           down-flags: "--volumes"
         
       - name: Install Composer dependencies
-        run: docker compose exec app composer install --prefer-dist --no-interaction --no-progress
-
+        run: docker compose exec app composer install
+        
       - name: Copy environment file
         run: docker compose exec app cp .env.example .env
 
