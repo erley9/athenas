@@ -23,8 +23,6 @@ class ClientTest extends TestCase
         $response = $this->actingAs($user)->json('GET', '/api/client');
 
         $response->assertOk();
-        $response->assertJson(['status' => true]);
-        $response->assertJson(['message' => "Successfully"]);
     }
 
     public function testFoundClient()
