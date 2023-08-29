@@ -10,7 +10,7 @@ on:
     - cron: '0 0 * * *'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   tests:
@@ -49,4 +49,4 @@ jobs:
         run: docker compose exec --user=root app php artisan db:seed --env=testing
 
       - name: Execute tests
-        run: docker compose exec app php artisan test --display-errors
+        run: docker compose exec --user=root app php artisan test
