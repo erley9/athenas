@@ -42,6 +42,8 @@ RUN mkdir -p /home/$user/.composer && \
 RUN mkdir -p /home/data/db/dumps && \
     chown -R $user:$user /home/$user
 
+RUN chmod 755 /var/www/
+
 # Install redis
 RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
